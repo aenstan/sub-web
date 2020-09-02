@@ -238,6 +238,8 @@ export default {
 
       options: {
         clientTypes: {
+          "Clash新参数": "clash&new_name=true",
+          "ClashR新参数": "clashr&new_name=true",
           Clash: "clash",
           ClashR: "clashr",
           Surge2: "surge&ver=2",
@@ -255,17 +257,17 @@ export default {
         backendOptions: [{ value: "http://127.0.0.1:25500/sub?" }],
         remoteConfig: [
           {
-            label: "universal",
+            label: "默认",
             options: [
               {
-                label: "No-Urltest",
+                label: "自用完全版",
                 value:
-                  "https://subconverter.oss-ap-southeast-1.aliyuncs.com/Rules/RemoteConfig/universal/no-urltest.ini"
+                  "https://raw.githubusercontent.com/aenstan/myclash/master/ACL4SSR_Online_Full.ini"
               },
               {
-                label: "Urltest",
+                label: "自用精简版",
                 value:
-                  "https://subconverter.oss-ap-southeast-1.aliyuncs.com/Rules/RemoteConfig/universal/urltest.ini"
+                  "https://raw.githubusercontent.com/aenstan/myclash/master/config.ini"
               }
             ]
           },
@@ -398,7 +400,9 @@ export default {
     }
   },
   mounted() {
-    this.form.clientType = "clash";
+    this.form.clientType = "clash&new_name=true";
+    this.form.customBackend = "https://b.mysub.cf/sub?";
+    this.form.remoteConfig = "https://raw.githubusercontent.com/aenstan/myclash/master/config.ini";
     this.notify();
     this.getBackendVersion();
   },
@@ -549,19 +553,6 @@ export default {
         .finally(() => {
           this.loading = false;
         });
-    },
-    notify() {
-      const h = this.$createElement;
-
-      this.$notify({
-        title: "隐私提示",
-        type: "warning",
-        message: h(
-          "i",
-          { style: "color: teal" },
-          "各种订阅链接（短链接服务除外）生成纯前端实现，无隐私问题。默认提供后端转换服务，隐私担忧者请自行搭建后端服务。"
-        )
-      });
     },
     confirmUploadConfig() {
       if (this.uploadConfig === "") {
